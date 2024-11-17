@@ -1,0 +1,5 @@
+# Ignorar archivos de modelos 3D
+*.rvt
+*.dwg
+*.ifc
+*.fbx
