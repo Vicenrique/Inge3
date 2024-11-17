@@ -18,4 +18,4 @@ jobs:
           curl -X POST https://api.getbeamer.com/notifications \
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer ${{ secrets.BEAMER_API_TOKEN }}" \
-          -d '{"title": "Nuevo Commit en Inge3", "message": "Se ha realizado un commit en el repositorio Inge3."}'
+          -d '{"title": "Nuevo Commit en Inge3", "message": "Se ha realizado un commit en el repositorio Inge3.", "target_url": "https://github.com/Vicenrique/Inge3"}'
