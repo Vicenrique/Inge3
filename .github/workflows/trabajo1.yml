@@ -13,6 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2  # Esto hace checkout de tu código
 
+      - name: Obtener información del commit
+        id: commit_info
+        run: |
+          echo "COMMIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+          echo "COMMIT_AUTHOR=$(git log -1 --pretty=%an)" >> $GITHUB_ENV
+
       - name: Notificar a Beamer
         run: |
           curl -X POST https://api.getbeamer.com/notifications \
@@ -20,6 +27,6 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.BEAMER_API_TOKEN }}" \
           -d '{
                 "title": "Nuevo Commit en Inge3",
-                "message": "Se ha realizado un commit en el repositorio Inge3.",
+                "message": "Se ha realizado un commit en el repositorio Inge3. Commit: '${{ env.COMMIT_HASH }}' - '${{ env.COMMIT_MESSAGE }}'",
                 "target_url": "https://app.getbeamer.com/inge3"
               }'
