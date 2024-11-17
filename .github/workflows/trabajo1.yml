@@ -1,0 +1,21 @@
+name: Notify Beamer on Commit
+
+on:
+  push:
+    branches:
+      - main  # Asegúrate de que tu flujo se ejecute en la rama correcta, cambia a "main" o "master" según sea necesario
+
+jobs:
+  notify_beamer:
+    runs-on: ubuntu-latest  # El trabajo se ejecutará en un sistema operativo Linux
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # Esto hace checkout de tu código
+
+      - name: Notify Beamer
+        run: |
+          curl -X POST https://api.getbeamer.com/notifications \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer ${{ secrets.BEAMER_API_TOKEN }}" \
+          -d '{"title": "Nuevo Commit en Inge3", "message": "Se ha realizado un commit en el repositorio Inge3."}'
