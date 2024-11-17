@@ -1,9 +1,9 @@
-name: Notify Beamer on Commit
+name: Notificar a Beamer sobre commit
 
 on:
   push:
     branches:
-      - main  # Asegúrate de que tu flujo se ejecute en la rama correcta, cambia a "main" o "master" según sea necesario
+      - main  # Asegúrate de que tu flujo se ejecute en la rama correcta
 
 jobs:
   notify_beamer:
@@ -13,11 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2  # Esto hace checkout de tu código
 
-      - name: Notify Beamer
+      - name: Notificar a Beamer
         run: |
           curl -X POST https://api.getbeamer.com/notifications \
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer ${{ secrets.BEAMER_API_TOKEN }}" \
-          -d '{"title": "Nuevo Commit en Inge3", 
-               "message": "Se ha realizado un commit en el repositorio Inge3.", 
-               "target_url": "https://github.com/Vicenrique/Inge3"}'
+          -d '{
+                "title": "Nuevo Commit en Inge3",
+                "message": "Se ha realizado un commit en el repositorio Inge3.",
+                "target_url": "https://app.getbeamer.com/inge3"
+              }'
